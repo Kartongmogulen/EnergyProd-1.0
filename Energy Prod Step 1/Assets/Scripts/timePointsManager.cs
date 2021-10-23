@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class timePointsManager : MonoBehaviour
 {
 	public int timePointsStart;
-	public int timePontsNow;
+	public int timePointsMaxNow;
+	public int timePointsNow;
 
 	public Text timePointsLeftText;
 
@@ -14,8 +15,9 @@ public class timePointsManager : MonoBehaviour
 	public supplyManager SupplyManager; 
 
 	void Start(){
-		timePontsNow = timePointsStart;
-		timePointsLeftText.text = "TP: " + timePontsNow + "/" + timePointsStart;
+		timePointsNow = timePointsStart;
+		timePointsMaxNow = timePointsStart;
+		timePointsLeftText.text = "TP: " + timePointsNow + "/" + timePointsMaxNow;
 
 		SupplyManager = GetComponent<supplyManager> ();
 		//TotalProductionPlayerManager = GetComponent<totalProductionPlayerManager> ();
@@ -24,9 +26,9 @@ public class timePointsManager : MonoBehaviour
 	public void spendTimePoints(int costTimePoints){
 		
 
-		if (timePontsNow > 0) {
-			timePontsNow -= costTimePoints;
-			timePointsLeftText.text = "TP: " + timePontsNow + "/" + timePointsStart;
+		if (timePointsNow > 0) {
+			timePointsNow -= costTimePoints;
+			timePointsLeftText.text = "TP: " + timePointsNow + "/" + timePointsMaxNow;
 
 			//TotalProductionPlayerManager.updatePlayerProduction ();
 			SupplyManager.supplyFromPlayer();
@@ -37,14 +39,19 @@ public class timePointsManager : MonoBehaviour
 	public void addBackTimePoints(int costTimePoints){
 		
 
-		if (timePontsNow < timePointsStart) {
-			timePontsNow += costTimePoints;
-			timePointsLeftText.text = "TP: " + timePontsNow + "/" + timePointsStart;
+		if (timePointsNow < timePointsStart) {
+			timePointsNow += costTimePoints;
+			timePointsLeftText.text = "TP: " + timePointsNow + "/" + timePointsMaxNow;
 
 			//TotalProductionPlayerManager.updatePlayerProduction ();
 			SupplyManager.supplyFromPlayer();
 		}
 	
+	}
+
+	public void resetAfterRound(){
+		timePointsNow = timePointsMaxNow;
+		timePointsLeftText.text = "TP: " + timePointsNow + "/" + timePointsMaxNow;
 	}
 
 

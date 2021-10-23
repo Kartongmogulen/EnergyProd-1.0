@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class upgradeHydro : MonoBehaviour
+public class upgradeBiomass : MonoBehaviour
 {
 	//Uppgradering 1
 	public int[] upgradeProdCapacity = new int[3];
@@ -17,66 +17,76 @@ public class upgradeHydro : MonoBehaviour
 
 	public GameObject upgradePanelGO;
 	public GameObject scriptGO;
-	public GameObject adjustProductionPanel;
-	public hydroProduction HydroProduction;
+
+	public biomassProductionManager BiomassProductionManager;
 
 	public Text productionNameText;
 	public Text descriptionText;
 	public Text costText;
 
 	void Awake(){
-		HydroProduction = scriptGO.GetComponent<hydroProduction> ();
+		BiomassProductionManager = scriptGO.GetComponent<biomassProductionManager> ();
 	}
 
-	public void chooseHydro(){
+	public void chooseBiomass(){
 
 		upgradePanelGO.SetActive (true);
 
-		productionNameText.text = "Hydro";
+		productionNameText.text = "Biomass";
 
 	}
 
 	public void upgradeOneInfo()
 	{
+
 		if (upgradeProdCapacityLvl == upgradeProdCapacity.Length) {
 			descriptionText.text = "Max level";
 			costText.text = "Max level";
 		} else {
-			descriptionText.text = "Increase effect output with: " + upgradeProdCapacity [upgradeProdCapacityLvl];
+			descriptionText.text = "Increase max output effect with: " + upgradeProdCapacity [upgradeProdCapacityLvl];
 			costText.text = "Cost: " + costUpgradeProdCapacity [upgradeProdCapacityLvl];
 			costUpgradeProdCapacityNow = costUpgradeProdCapacity [upgradeProdCapacityLvl];
 		}
 	}
 
-	public void upgradeHydroOne(){
+	public void upgradeBiomassOne(){
 
 		if (upgradeProdCapacityLvl < upgradeProdCapacity.Length) {
 
-			HydroProduction.hydroProdCapacityMaxNow += upgradeProdCapacity [upgradeProdCapacityLvl];
+			BiomassProductionManager.biomassProdCapacityNow += upgradeProdCapacity [upgradeProdCapacityLvl];
 			upgradeProdCapacityLvl++;
-			HydroProduction.hydroProdTotNow = HydroProduction.hydroProdCapacityMaxNow;
 			upgradeOneInfo ();
-			HydroProduction.maxProduction ();
 
-		} else {
-			
-			costText.text = "Max level";
+	} else {
+
+		costText.text = "Max level";
 
 		}
 	}
-		
 
 	public void upgradeTwoInfo(){
-		descriptionText.text = "Be able på controll the production";
-		costText.text = "Cost: " + costUpgradeTwo;
+
+		if (doesThePlayerOwnUpgradeTwo == 0) {
+			descriptionText.text = "Decrease time to produce one unit och Biomass with 1";
+			costText.text = "Cost: " + costUpgradeTwo;
+
+		} else {
+			descriptionText.text = "Max level";
+			costText.text = "Max level";
+		}
 	}
 
-	public void upgradeHydroTwo(){
+	public void upgradeBiomassTwo(){
 
-		adjustProductionPanel.SetActive (true);
-		doesThePlayerOwnUpgradeTwo = 1;
+		if (doesThePlayerOwnUpgradeTwo == 0) {
+
+			BiomassProductionManager.costTimePointsProdNow = 1;
+
+			doesThePlayerOwnUpgradeTwo = 1;
+
+		}
+
+		upgradeTwoInfo ();
 	}
-
-
-
 }
+

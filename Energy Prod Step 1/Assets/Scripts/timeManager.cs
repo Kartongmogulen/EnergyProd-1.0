@@ -10,6 +10,7 @@ public class timeManager : MonoBehaviour
 	public priceManager PriceManager;
 	public moneyPlayerManager MoneyPlayerManager;
 	public totalProductionPlayerManager TotalProductionPlayerManager;
+	public timePointsManager TimePointsManager;
 
 	public Text DateNowText;
 	public int year;
@@ -21,6 +22,7 @@ public class timeManager : MonoBehaviour
 		PriceManager = GetComponent<priceManager> ();
 		MoneyPlayerManager = GetComponent<moneyPlayerManager> ();
 		TotalProductionPlayerManager = GetComponent<totalProductionPlayerManager> ();
+		TimePointsManager = GetComponent<timePointsManager> ();
 
 		month = 1;
 		DateNowText.text = "Y: " + year + " M: " + month;
@@ -38,13 +40,19 @@ public class timeManager : MonoBehaviour
 			DateNowText.text = "Y: " + year + " M: " + month;
 		}
 		TotalProductionPlayerManager.updatePlayerProduction ();
-		MoneyPlayerManager.updatePlayerMoney ();
+		MoneyPlayerManager.updatePlayerMoneyFromProd ();
 
 		DemandManager.updateDemand ();
 		SupplyManager.updateSupply ();
 		PriceManager.updatePrice ();
 
+		resetAfterRound ();
 
+	}
+
+	public void resetAfterRound(){
+
+		TimePointsManager.resetAfterRound ();
 
 	}
 

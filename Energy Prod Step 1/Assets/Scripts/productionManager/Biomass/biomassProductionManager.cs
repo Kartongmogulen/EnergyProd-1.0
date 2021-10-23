@@ -22,33 +22,36 @@ public class biomassProductionManager : MonoBehaviour
 		costTimePointsProdNow = costTimePointsProdStart;
 		biomassProdCapacityNow = biomassProdCapacityStart;
 		TotalProductionPlayerManager = GetComponent<totalProductionPlayerManager> ();
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		biomassProdText.text = "B1: " + biomassProdTotNow + "/" + biomassProdCapacityStart;
+		biomassProdText.text = "B1: " + biomassProdTotNow + "/" + biomassProdCapacityNow;
 	}
 
 	public void addProduction(){
-		TimePointsManager.spendTimePoints (costTimePointsProdNow);
+		
 
-		if (biomassProdTotNow < biomassProdCapacityNow) {
+		if (biomassProdTotNow < biomassProdCapacityNow && TimePointsManager.timePointsNow>=costTimePointsProdNow) {
+			TimePointsManager.spendTimePoints (costTimePointsProdNow);
 			biomassProdTotNow++;
 		}
 
-		biomassProdText.text = "B1: " + biomassProdTotNow + "/" + biomassProdCapacityStart;
+		//biomassProdText.text = "B1: " + biomassProdTotNow + "/" + biomassProdCapacityStart;
 		TotalProductionPlayerManager.updatePlayerProduction ();
 	}
 
 	public void reduceProduction(){
-		TimePointsManager.addBackTimePoints (costTimePointsProdNow);
+		
 
 		if (biomassProdTotNow > 0) {
+			TimePointsManager.addBackTimePoints (costTimePointsProdNow);
 			biomassProdTotNow--;
 		}
 
-		biomassProdText.text = "B1: " + biomassProdTotNow + "/" + biomassProdCapacityStart;
+		//biomassProdText.text = "B1: " + biomassProdTotNow + "/" + biomassProdCapacityStart;
 		TotalProductionPlayerManager.updatePlayerProduction ();
 	}
 }

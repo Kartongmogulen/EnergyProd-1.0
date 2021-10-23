@@ -24,8 +24,12 @@ public class moneyPlayerManager : MonoBehaviour
 		moneyPlayerText.text = "Money: " + moneyNow + "$";
     }
 
-    // Update is called once per frame
-    public void updatePlayerMoney()
+   
+	public void updatePlayerMoney(){
+		moneyPlayerText.text = "Money: " + moneyNow + "$";
+	}
+
+    public void updatePlayerMoneyFromProd()
     {
 		moneyFromProduction = PriceManager.priceNow * TotalProductionPlayerManager.totalProdPlayer;
 

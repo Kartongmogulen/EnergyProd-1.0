@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 293032894}
   - component: {fileID: 293032893}
   m_Layer: 5
-  m_Name: Text
+  m_Name: CostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1411,6 +1411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 436744271}
+  - component: {fileID: 436744273}
   - component: {fileID: 436744270}
   - component: {fileID: 436744272}
   m_Layer: 0
@@ -1434,8 +1435,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeProdCapacity: 010000000200000003000000
   upgradeProdCapacityLvl: 0
+  costUpgradeProdCapacityNow: 0
   costUpgradeProdCapacity: 64000000c80000002c010000
   costUpgradeTwo: 500
+  doesThePlayerOwnUpgradeTwo: 0
   upgradePanelGO: {fileID: 893265512}
   scriptGO: {fileID: 992858084}
   adjustProductionPanel: {fileID: 1887876336}
@@ -1471,8 +1474,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   productionNameActiveText: {fileID: 520239600}
   HydroUpgrade: {fileID: 0}
+  BiomassUpgrade: {fileID: 0}
   MoneyPlayerManager: {fileID: 0}
   activeUpgrade: 0
+  moneyPlayer: 0
+  costUpgrade: 0
+  ScriptsGO: {fileID: 992858084}
+--- !u!114 &436744273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436744269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6672175b39ded6746951d328fe3e3b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeProdCapacity: 010000000100000001000000
+  upgradeProdCapacityLvl: 0
+  costUpgradeProdCapacityNow: 0
+  costUpgradeProdCapacity: c80000002c01000090010000
+  costUpgradeTwo: 700
+  doesThePlayerOwnUpgradeTwo: 0
+  upgradePanelGO: {fileID: 893265512}
+  scriptGO: {fileID: 992858084}
+  BiomassProductionManager: {fileID: 0}
+  productionNameText: {fileID: 520239600}
+  descriptionText: {fileID: 1305952941}
+  costText: {fileID: 293032893}
 --- !u!1 &500348785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,7 +1678,7 @@ GameObject:
   - component: {fileID: 520239601}
   - component: {fileID: 520239600}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ProductionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2678,6 +2709,7 @@ MonoBehaviour:
   PriceManager: {fileID: 0}
   MoneyPlayerManager: {fileID: 0}
   TotalProductionPlayerManager: {fileID: 0}
+  TimePointsManager: {fileID: 0}
   DateNowText: {fileID: 1729312428}
   year: 0
   month: 0
@@ -2772,7 +2804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0dd0479dd4a00c41b1fb86a47c0e8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyStart: 1000
+  moneyStart: 500
   moneyNow: 0
   moneyFromProduction: 0
   moneyPlayerText: {fileID: 226548075}
@@ -2809,7 +2841,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timePointsStart: 4
-  timePontsNow: 0
+  timePointsMaxNow: 0
+  timePointsNow: 0
   timePointsLeftText: {fileID: 195962476}
   TotalProductionPlayerManager: {fileID: 0}
   SupplyManager: {fileID: 0}
@@ -4617,7 +4650,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1878699823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 436744273}
+        m_TargetAssemblyTypeName: upgradeBiomass, Assembly-CSharp
+        m_MethodName: chooseBiomass
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1878699823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4673,7 +4718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1887876337
 RectTransform:
   m_ObjectHideFlags: 0
